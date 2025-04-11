@@ -17,8 +17,9 @@
   },
   "homepage": "https://github.com/ryan-way/dynamo-migration#readme",
   "workspaces": [
-    "main-cdk",
-    "script",
-    "packages/script"
+    "packages/main-cdk",
+    "packages/individual-script",
+    "packages/batch-script",
+    "packages/lib"
   ]
 }
