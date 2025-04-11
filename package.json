@@ -1,0 +1,24 @@
+{
+  "name": "main-cdk",
+  "version": "1.0.0",
+  "description": "implementation of some strategies to update existing entries in a dynamo db table",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ryan-way/dynamo-migration.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ryan-way/dynamo-migration/issues"
+  },
+  "homepage": "https://github.com/ryan-way/dynamo-migration#readme",
+  "workspaces": [
+    "main-cdk",
+    "script",
+    "packages/script"
+  ]
+}
