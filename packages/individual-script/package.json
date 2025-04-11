@@ -1,5 +1,5 @@
 {
-  "name": "script",
+  "name": "individual-script",
   "version": "1.0.0",
   "main": "index.js",
   "devDependencies": {
@@ -20,6 +20,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "^3.787.0"
+    "@aws-sdk/client-dynamodb": "^3.787.0",
+    "lib": "^1.0.0"
   }
 }
