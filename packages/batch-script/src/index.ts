@@ -10,7 +10,7 @@ import { Profiler } from "lib";
 const TABLE_ARN =
   "arn:aws:dynamodb:us-west-1:196728492750:table/DynamoStack-TestTable5769773A-WBGE6PUF9M82";
 const TEST_SIZE = 1000;
-const DYNAMO_DB_MATCH_BATCH_SIZE = 25;
+const DYNAMO_DB_MAX_BATCH_SIZE = 25;
 const SCAN_SIZE = 100;
 
 async function insertItems(client: DynamoDBClient) {
@@ -36,7 +36,7 @@ async function insertItems(client: DynamoDBClient) {
 
     if (
       input.RequestItems?.["DynamoStack-TestTable5769773A-WBGE6PUF9M82"]
-        .length == DYNAMO_DB_MATCH_BATCH_SIZE
+        .length == DYNAMO_DB_MAX_BATCH_SIZE
     ) {
       const command = new BatchWriteItemCommand(input);
       await profiler.profileAsync(
@@ -81,7 +81,7 @@ async function updateItems(client: DynamoDBClient) {
 
       if (
         input.RequestItems?.["DynamoStack-TestTable5769773A-WBGE6PUF9M82"]
-          .length == DYNAMO_DB_MATCH_BATCH_SIZE
+          .length == DYNAMO_DB_MAX_BATCH_SIZE
       ) {
         const command = new BatchWriteItemCommand(input);
         await profiler.profileAsync(
@@ -128,7 +128,7 @@ async function deleteItems(client: DynamoDBClient) {
 
       if (
         input.RequestItems?.["DynamoStack-TestTable5769773A-WBGE6PUF9M82"]
-          .length == DYNAMO_DB_MATCH_BATCH_SIZE
+          .length == DYNAMO_DB_MAX_BATCH_SIZE
       ) {
         const command = new BatchWriteItemCommand(input);
         await profiler.profileAsync(

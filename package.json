@@ -20,6 +20,7 @@
     "packages/main-cdk",
     "packages/individual-script",
     "packages/batch-script",
-    "packages/lib"
+    "packages/lib",
+    "packages/concurrent-batch"
   ]
 }
