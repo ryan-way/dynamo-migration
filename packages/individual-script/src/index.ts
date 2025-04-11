@@ -13,7 +13,7 @@ import { Profiler } from "lib";
 
 const TABLE_ARN =
   "arn:aws:dynamodb:us-west-1:196728492750:table/DynamoStack-TestTable5769773A-WBGE6PUF9M82";
-const TEST_SIZE = 100;
+const TEST_SIZE = 1000;
 const SCAN_SIZE = 1;
 
 async function insertItems(client: DynamoDBClient) {
