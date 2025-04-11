@@ -20,46 +20,45 @@
 // └─────────┴─────────┴───────────┴─────────┘
 
 export class Profiler {
-    private map: Map<string, number> = new Map<string, number>();
-    constructor() {}
+  private map: Map<string, number> = new Map<string, number>();
+  constructor() {}
 
-    profile<T>(key: string, fn: () => T): T {
-        const start = performance.now();
-        const result = fn();
-        const end = performance.now();
+  profile<T>(key: string, fn: () => T): T {
+    const start = performance.now();
+    const result = fn();
+    const end = performance.now();
 
-        const prev = this.map.get(key);
-        this.map.set(key, (end - start) + (prev ?? 0));
+    const prev = this.map.get(key);
+    this.map.set(key, end - start + (prev ?? 0));
 
-        return result;
+    return result;
+  }
+
+  async profileAsync<T>(key: string, fn: () => Promise<T>): Promise<T> {
+    const start = performance.now();
+    const result = await fn();
+    const end = performance.now();
+
+    const prev = this.map.get(key);
+    this.map.set(key, end - start + (prev ?? 0));
+
+    return result;
+  }
+
+  report<T>(additional?: (time: number) => T) {
+    const report = [];
+    let sum = 0;
+    for (const entry of this.map) {
+      sum += entry[1];
     }
-
-    async profileAsync<T>(key: string, fn: () => Promise<T>): Promise<T> {
-        const start = performance.now();
-        const result = await fn();
-        const end = performance.now();
-
-        const prev = this.map.get(key);
-        this.map.set(key, (end - start) + (prev ?? 0));
-
-        return result;
+    for (const entry of this.map) {
+      report.push({
+        profile: entry[0],
+        "time (ms)": Math.round(entry[1] * 100) / 100,
+        percent: Math.round((entry[1] / sum) * 100) / 100,
+        ...(additional?.(Math.round(entry[1] * 100) / 100) ?? {}),
+      });
     }
-
-    report(additional: (time: number) => any = () => {}) {
-
-        const report = [];
-        let sum = 0;
-        for(const entry of this.map) {
-            sum += entry[1];
-        }
-        for(const entry of this.map) {
-            report.push({
-                profile: entry[0],
-                "time (ms)": Math.round(entry[1]*100)/100,
-                percent: Math.round((entry[1]/sum)*100)/100,
-                ...additional(Math.round(entry[1]*100)/100)
-            })
-        }
-        console.table(report);
-    }
+    console.table(report);
+  }
 }
